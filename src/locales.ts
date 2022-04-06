@@ -16,13 +16,14 @@
 	WebDAV-Drive. If not, see <https://www.gnu.org/licenses/>.
 */
 
-import { register, init, addMessages } from "svelte-i18n";
-import en from "../locales/translation-en.json";
+import { register, init, addMessages } from "svelte-intl-precompile";
+// @ts-expect-error
+import en from "$locales/translation-en";
 
 // Init localization
-addMessages("en", en);
-register("fr", () => import("../locales/translation-fr.json"));
-register("nb", () => import("../locales/translation-nb_NO.json"));
+addMessages("en", en);                                      // @ts-expect-error
+register("fr", () => import("$locales/translation-fr"));    // @ts-expect-error
+register("nb", () => import("$locales/translation-nb_NO"));
 init({
 	fallbackLocale: "en",
 });

@@ -4,8 +4,8 @@ import resolve from '@rollup/plugin-node-resolve';
 import livereload from 'rollup-plugin-livereload';
 import { terser } from 'rollup-plugin-terser';
 import typescript from '@rollup/plugin-typescript';
-import json from '@rollup/plugin-json';
 import css from 'rollup-plugin-css-only';
+import precompileIntl from "svelte-intl-precompile/sveltekit-plugin";
 import { copy } from "@web/rollup-plugin-copy";
 import * as path from "path";
 
@@ -36,9 +36,8 @@ export default {
 				dev: !production
 			}
 		}),
-
-		// JSON plugin to convert translation files to modules.
-		json({ namedExports: false }),
+		// Compile locales into machine readable.
+		precompileIntl('locales'),
 
 		// we'll extract any component CSS out into
 		// a separate file - better for performance
